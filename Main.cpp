@@ -1,70 +1,77 @@
+#include "Grocer.h" 
 #include <iostream>
-#include <cmath>
-#include <string>
-#include <fstream>
-#include <map>
-#include <iomanip>
-#include "Header.h"
+#include <limits> 
 
-using namespace std;
+// Using a named enum for menu options 
+enum MenuOption {
+    SEARCH_ITEM = 1,
+    PRINT_LIST = 2,
+    PRINT_HISTOGRAM = 3,
+    EXIT = 4,
+    ADD_ITEM = 5,
+    REMOVE_ITEM = 6
+};
 
-// Main function
+// Displays the main menu options to the user
+void displayMenu() {
+    std::cout << "\n************************************" << std::endl;
+    std::cout << "1. Search for an item's frequency" << std::endl;
+    std::cout << "2. Print frequency of all items" << std::endl;
+    std::cout << "3. Print histogram of item frequencies" << std::endl;
+    std::cout << "4. Exit Program" << std::endl;
+    std::cout << "5. Add Item" << std::endl;
+    std::cout << "6. Remove Item" << std::endl;
+    std::cout << "************************************" << std::endl;
+    std::cout << "Enter your choice: ";
+}
+
 int main() {
-    GroceryTracker tracker;// Creates instance of GroceryTracker class
+    // Create an instance of the Grocer class and Its constructor handles loading data
+    Grocer storeData;
+    int option;
 
-    // Load data from provided file
-    tracker.LoadDataFromFile("CS210_Project_Three_Input_File.txt");
+    std::cout << "Welcome to the Corner Grocer Item Tracker!" << std::endl;
 
-    int choice = 0; // Assign default vraiable for user's menu choice
-    string itemName;// Variable stores name of item from user's input
+    // The main application loop. Runs until the user chooses to exit
+    while (true) {
+        displayMenu();
 
-    do {
-        // Loop main menu and options
-        cout << "\n\t\t\t******************************";
-        cout << "\n\t\t\t***** Corner Grocer Menu *****\n";
-        cout << "\t\t\t******************************\n";
-        cout << "\t\t\t1. Search for an item\n";
-        cout << "\t\t\t2. Display all item frequencies\n";
-        cout << "\t\t\t3. Display histogram\n";
-        cout << "\t\t\t4. Exit\n";
-        cout << "\t\t\tChoose an option (1-4): ";
-        cin >> choice; // Get user input for menu selection
-
-        // Input validation loop to ensure user's choice is between 1 and 4
-        while (cin.fail() || choice < 1 || choice > 4) {
-            cin.clear();// Clear the input error flag
-            cin.ignore(1000, '\n');// Ignore up to 1000 characters in input 
-            cout << "Invalid input. Please enter a number between 1 and 4: ";// Prompt again if choice is not between 1 and 4
-            cin >> choice;// Get user's input (again)
+        // This loop handles invalid user input (e.x. entering text instead of a number)
+        while (!(std::cin >> option)) {
+            std::cout << "Invalid input. Please enter a number: ";
+            // Clears the error flag on std::cin so future I/O operations will work correctly
+            std::cin.clear();
+            // Discards the rest of the invalid input line to prevent an infinite loop
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        // Main menu functionality based on user's menu choice
-        switch (choice) {
-         // Search for an item
-        case 1:
-            cout << "\nEnter item name to search: ";
-            cin >> itemName;
-            // Display frequency of the item using the GroceryTracker function
-            cout << itemName << " was purchased "
-                << tracker.GetItemFrequency(itemName) << " times.\n";
-            break;
 
-         // Display all item frequencies
-        case 2:
-            tracker.PrintAllItems();
+        // A switch statement to execute code based on the user's valid integer input
+        // Using the enum constants makes the intent of each case clear
+        switch (option) {
+        case SEARCH_ITEM:
+            storeData.printSingleFrequency();
             break;
-
-         // Display histogram of items
-        case 3:
-            tracker.PrintHistogram();
+        case PRINT_LIST:
+            storeData.printAllFrequencies();
             break;
-
-         // Exit program
-        case 4:
-            cout << "Goodbye!\n";
+        case PRINT_HISTOGRAM:
+            storeData.printAllFrequenciesHistogram();
+            break;
+        case ADD_ITEM:
+            storeData.addItem();
+            break;
+        case REMOVE_ITEM:
+            storeData.removeItem();
+            break;
+        case EXIT:
+            std::cout << "Exiting program. Goodbye!" << std::endl;
+            return 0; // Terminate the main function and the program
+        default:
+            // This block runs if the user enters a number that is not a valid menu option
+            std::cout << "Invalid option. Please choose a number from 1 to 6." << std::endl;
             break;
         }
-     // Repeat menu loop until user selects option 4 (Exit)
-    } while (choice != 4);
-    // Exit program with success status (0 errors)
+    }
+
     return 0;
 }
