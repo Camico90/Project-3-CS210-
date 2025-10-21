@@ -1,10 +1,10 @@
-# Project-3-CS210-
-What is the functionality of this program?
+# Project-3-CS210
+**What is the functionality of this program?**
 	The Corner Grocer Item Tracker program is designed to analyze and manage the grocery item purchase data. It takes input from a text file that lists all the items bought and creates a frequency map to show how often each item shows up. Users can engage with the program via a menu-driven interface to do different tasks, like checking how many times a specific item was bought, seeing the frequencies of all items, or looking at a histogram that illustrates purchase trends. Plus, the program lets users add new items or take out ones they no longer need, updating both the in-memory data and a backup file (frequency.dat) to keep everything saved. By merging file input/output tasks, data mapping, and user interaction, the program offers a smart way to keep track of grocery buying habits and manage inventory data in a neat and organized manner.
-	
-What did you do particularly well?
+
+**What did you do particularly well?**
 	One thing I really nailed was putting together the program with a clear structure and modular design. By setting up a separate GroceryItem class in both the header and implementation files, I was able to keep the main program focused on user interactions while letting the class methods handle data management and file processing. This clear division of responsibilities made the code much easier to understand and maintain. I also made sure to include proper input validation for the menu options, which helps avoid crashes or weird behavior from bad user input. Also, incorporating case-insensitive searches and trimming inputs boost efficiency and makes it easier for users. All in all, the layout and user-friendly interface make the program easy to use and dependable.
    
    
-What are the benefits and drawbacks of using C++?
+**What are the benefits and drawbacks of using C++?**
 	I think that C++ has a bunch of strong advantages that make it a good language for coding projects, especially those that need performance and control. One of the biggest perks is its speed and efficiency, C++ lets you manage memory directly and perform low-level operations, which means developers can create super optimized programs. It also embraces object-oriented programming (OOP), encouraging code that?s modular, reusable, and easy to maintain. Plus, C++ comes with a huge standard library and a solid community, offering tools for nearly any kind of software development. However, C++ can be pretty complex and prone to errors, especially for beginners, because of manual memory management and its tricky syntax. On top of that, C++ usually takes longer for development and debugging compared to higher-level languages like Python or Java. All in all, while C++ delivers incredible performance and flexibility, it requires careful coding discipline and experience to use it well.
